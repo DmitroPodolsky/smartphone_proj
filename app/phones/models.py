@@ -68,13 +68,13 @@ class Phone_comments(models.Model):
     comment = models.TextField()
     accounts = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     phone = models.ForeignKey(Phones,on_delete=models.CASCADE,null=True,blank=True)
-    rate = models.DecimalField(max_digits=3,decimal_places=2)
+    rate = models.IntegerField()
     username = models.TextField(default='1')
 class AirPods_comments(models.Model):
     comment = models.TextField()
     accounts = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     airpod = models.ForeignKey(AirPods,on_delete=models.CASCADE,null=True,blank=True)
-    rate = models.DecimalField(max_digits=3,decimal_places=2)
+    rate = models.IntegerField()
     username = models.TextField(default='1')
 class Bascet_products(models.Model):
     accounts = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
