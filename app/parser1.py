@@ -125,3 +125,4 @@ cur = con.cursor()
 execute_values(cur,"INSERT INTO phones_airpods (id,name, slug, brand,price,photo1,photo2,type,type_connection,enterface,color,anti_shum,ambushur,type_vipe,date_create,country,garantee,time_work,corpus,description,weight,vid,dop_infa,types,count,rating) VALUES %s",args)
 con.commit()
 con.close()
+#proxy:8000
