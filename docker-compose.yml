@@ -1,6 +1,10 @@
 version: '3.9'
 
 services:
+  stripe-cli:
+    image: stripe/stripe-cli
+    container_name: stripe-cli
+    command: "listen --api-key sk_test_51MfqxGEFAX4ybJinIBCSCTszLqbp8ioWGdKE6uqjB9R5baPyG7wxHHY8iAvLbHDLkHgjuDq5wcoIvl7yBOT8uYT100Wwpc6Dbx --forward-to app:8000/webhooks/stripe/"
   app:
     build:
       context: .

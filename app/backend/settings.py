@@ -67,7 +67,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -185,9 +185,16 @@ AUTHENTICATION_BACKENDS = [
 ]
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
+
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
+
 SOCIAL_AUTH_GITHUB_KEY = '81cfb1c6ffebeecbc567'
 SOCIAL_AUTH_GITHUB_SECRET = 'f02bddf1c3b58b84ef6137cb03c26517f354f155'
+
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1048832586384-t6jth6pg590556idi71mpk338d1em9fa.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+STRIPE_PUBLIC_KEY='pk_test_51MfqxGEFAX4ybJinRwTbicBTgxT1UqviPkJcJBAluxdhRJeHMRBhlyBPvxe8OvxnCsPXkX6LxI4RS4bO0zaZtIzk00345MLw6Q'
+STRIPE_SECRET_KEY='sk_test_51MfqxGEFAX4ybJinIBCSCTszLqbp8ioWGdKE6uqjB9R5baPyG7wxHHY8iAvLbHDLkHgjuDq5wcoIvl7yBOT8uYT100Wwpc6Dbx'
+STRIPE_WEBHOOK_SECRET='whsec_32bb58713348b20f8c87c258e467c2af33348bc1c54b06ec36708e0a83a8b22c'

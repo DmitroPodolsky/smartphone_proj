@@ -46,3 +46,4 @@ websockets==10.4
 zipp==3.11.0
 psycopg2==2.9.5
 uWSGI>=2.0.19.1,<2.1
+stripe==5.2.0
