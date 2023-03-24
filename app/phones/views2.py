@@ -110,16 +110,15 @@ def stripe_webhook(request):
                 change = Phones.objects.get(id=i.product_id)
                 change.count-=1
                 change.save()
-            elif i.group_product == 1:
+            elif i.group_product == 2:
                 change = AirPods.objects.get(id=i.product_id)
                 change.count-=1
                 change.save()
             i.product_buy = True
             i.time = get_time()
             i.save()
-        speak = User.objects.get(id=session['metadata']['id'])
         send_mail(
-            subject=f"Here is your products {speak.username}",
+            subject=f"Here is your products",
             message=f"Thanks for your purchase. Here is the products you ordered. The are soon will be ",
             recipient_list=[customer_email],
             from_email="matt@test.com"
