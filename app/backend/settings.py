@@ -123,12 +123,12 @@ EMAIL_HOST = 'smtp.gmail.com'
 #EMAIL_FROM = 'podolskiydmitry@gmail.com'
 #EMAIL_HOST_USER = 'podolskiydmitry@gmail.com'
 #EMAIL_HOST_PASSWORD = 'sjijfcbejtnhcihv'
-EMAIL_FROM = 'hanzodrey@gmail.com'
-EMAIL_HOST_USER = 'hanzodrey@gmail.com'
-EMAIL_HOST_PASSWORD = 'hvvhoohhbxsqugzy'#'bjlxnmfeqhmurdxu'
+EMAIL_FROM = 'drebsasaqq@gmail.com'
+EMAIL_HOST_USER = 'drebsasaqq@gmail.com'
+EMAIL_HOST_PASSWORD = 'dxylgvwvzrqjrwmd'#'bjlxnmfeqhmurdxu'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
+EMAIL_USE_SSL = False
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 

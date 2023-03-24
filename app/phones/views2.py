@@ -104,6 +104,7 @@ def stripe_webhook(request):
         # Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
         session = event['data']['object']
         customer_email = session['customer_details']['email']
+        print(customer_email)
         products = Bascet_products.objects.filter(accounts_id=session['metadata']['id']) & Bascet_products.objects.filter(product_buy=False)
         for i in products:
             if i.group_product == 1:
