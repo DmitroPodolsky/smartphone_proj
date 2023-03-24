@@ -287,7 +287,9 @@ class Bascet_products_APP(APIView):
             if self.instance.product_buy == True:
                 raise serializers.ValidationError({1: 'ok'})
         elif request.method == "PUT":
-            self.instance = Bascet_products.objects.filter(accounts_id__in=[user.id]) & Bascet_products.objects.filter(product_buy=True)
+            print(1)
+            self.instance = Bascet_products.objects.filter(accounts_id = user.id) & Bascet_products.objects.filter(product_buy=True)
+            print(2)
             if len(self.instance) == 0:
                 raise serializers.ValidationError({1: 'ok'})
 
