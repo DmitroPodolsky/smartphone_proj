@@ -123,9 +123,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 #EMAIL_FROM = 'podolskiydmitry@gmail.com'
 #EMAIL_HOST_USER = 'podolskiydmitry@gmail.com'
 #EMAIL_HOST_PASSWORD = 'sjijfcbejtnhcihv'
-EMAIL_FROM = 'dimapodolsky272@gmail.com'
-EMAIL_HOST_USER = 'dimapodolsky272@gmail.com'
-EMAIL_HOST_PASSWORD = 'bjlxnmfeqhmurdxu'
+EMAIL_FROM = 'hanzodrey@gmail.com'
+EMAIL_HOST_USER = 'hanzodrey@gmail.com'
+EMAIL_HOST_PASSWORD = 'hvvhoohhbxsqugzy'#'bjlxnmfeqhmurdxu'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

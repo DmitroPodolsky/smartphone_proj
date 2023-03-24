@@ -31,11 +31,11 @@ def activate(request, uidb64, token):
         user.save()
 
         messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
-        return redirect('http://139.59.15.161:3000/sign-in/')
+        return redirect('http://smartshopcenter.org:3000/sign-in')
     else:
         messages.error(request, "Activation link is invalid!")
 
-    return redirect('http://139.59.15.161:3000/sign-in/')
+    return redirect('http://smartshopcenter.org:3000/sign-in')
 
 def reset(request, uidb64, token):
     User = get_user_model()
@@ -51,11 +51,11 @@ def reset(request, uidb64, token):
         user.save()
 
         messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
-        return redirect('http://139.59.15.161:3000/sign-in/')
+        return redirect('http://smartshopcenter.org:3000/sign-in')
     else:
         messages.error(request, "Activation link is invalid!")
 
-    return redirect('http://139.59.15.161:3000/sign-in/')
+    return redirect('http://smartshopcenter.org:3000/sign-in')
 
 def activateEmail(request, user, to_email):
     mail_subject = "Activate your user account."

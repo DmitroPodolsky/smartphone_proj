@@ -1,7 +1,10 @@
 import json
+import datetime
 
 import stripe
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.db.models import Sum
 from django.shortcuts import redirect
 from django.views import View
 from django.conf import settings
@@ -10,7 +13,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from .models import Phones,Bascet_products
+from .models import Phones,Bascet_products,AirPods
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -37,20 +40,21 @@ class ProductLandingPageView(TemplateView):
 
 
 
-class CreateCheckoutSessionView(View):
-    def post(self, request, *args, **kwargs):
+@csrf_exempt
+def CreateCheckoutSessionView(request, *args, **kwargs):
+    if request.method == 'POST':
         product_id = kwargs['pk']
-        product = Bascet_products.objects.get(id=product_id)
-        YOUR_DOMAIN = 'http://127.0.0.1:8000/'
+        product = Bascet_products.objects.filter(accounts_id=product_id) & Bascet_products.objects.filter(product_buy=False)
+        product = product.aggregate(total1=Sum('price'))
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
                     # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
                     'price_data': {
                         'currency': 'usd',
-                        'unit_amount': product.price,
+                        'unit_amount': round(product['total1']/11386)*100,
                         'product_data': {
-                            'name': product.name
+                            'name': 'общая сумма всех товаров'
                             # 'images' тут изображение может быть товара
                         }
 
@@ -58,13 +62,13 @@ class CreateCheckoutSessionView(View):
                     'quantity': 1,
                 },
             ],
-            metadata={'product_id':product.id},
+            metadata={'id':product_id},
             mode='payment',
-            success_url=YOUR_DOMAIN + 'success/',
-            cancel_url=YOUR_DOMAIN + 'cancel/',
+            success_url='http://smartshopcenter.org:3000',
+            cancel_url='http://smartshopcenter.org:3000',
         )
         #stripe_checkout_url = f'https://checkout.stripe.com/c/pay/{checkout_session.id}'
-        return JsonResponse({'id': checkout_session.id})
+        return JsonResponse({'id': checkout_session.url})
 
 
 '''@csrf_exempt
@@ -77,6 +81,9 @@ def stripe_webhook(request):
 
     return HttpResponse(status=200)'''#для проверки перехвата запросов с нашего сайта stripe
 
+def get_time():
+    delta = datetime.timedelta(hours=5,minutes=0)
+    return datetime.datetime.now(datetime.timezone.utc)+delta
 
 @csrf_exempt
 def stripe_webhook(request):
@@ -96,19 +103,28 @@ def stripe_webhook(request):
     if event['type'] == 'checkout.session.completed':
         # Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
         session = event['data']['object']
-        print(session)
         customer_email = session['customer_details']['email']
-        product_id = session['metadata']['product_id']
-
-        product = Bascet_products.objects.get(id=product_id)
-
+        products = Bascet_products.objects.filter(accounts_id=session['metadata']['id']) & Bascet_products.objects.filter(product_buy=False)
+        for i in products:
+            if i.group_product == 1:
+                change = Phones.objects.get(id=i.product_id)
+                change.count-=1
+                change.save()
+            elif i.group_product == 1:
+                change = AirPods.objects.get(id=i.product_id)
+                change.count-=1
+                change.save()
+            i.product_buy = True
+            i.time = get_time()
+            i.save()
+        speak = User.objects.get(id=session['metadata']['id'])
         send_mail(
-            subject="Here is your product1",
-            message=f"Thanks for your purchase. Here is the product you ordered. The URL is {product.price}",
+            subject=f"Here is your products {speak.username}",
+            message=f"Thanks for your purchase. Here is the products you ordered. The are soon will be ",
             recipient_list=[customer_email],
             from_email="matt@test.com"
         )
-    elif event["type"] == "payment_intent.succeeded":
+    '''elif event["type"] == "payment_intent.succeeded":
         intent = event['data']['object']
 
         stripe_customer_id = intent["customer"]
@@ -124,7 +140,7 @@ def stripe_webhook(request):
             message=f"Thanks for your purchase. Here is the product you ordered. The URL is {product.price}",
             recipient_list=[customer_email],
             from_email="matt@test.com"
-        )
+        )'''
     # Passed signature verification
     return HttpResponse(status=200)
 class StripeIntentView(View):

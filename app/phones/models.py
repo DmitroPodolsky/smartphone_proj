@@ -83,5 +83,6 @@ class Bascet_products(models.Model):
     product_buy = models.BooleanField(default=False)
     name = models.TextField(default='1')
     price = models.IntegerField(default=0)
+    time = models.DateTimeField(null=True,blank=True)
     def get_display_price(self):
-        return "{0:.2f}".format(self.price / 100)
+        return self.price

@@ -277,13 +277,22 @@ class Bascet_products_APP(APIView):
         user=request.user# pk работает как айди объекта
         if request.method == "GET":
             if user.id == pk:
-                self.instance = Bascet_products.objects.all().filter(accounts_id__in=[pk])
+                self.instance = Bascet_products.objects.filter(accounts_id__in=[pk]) & Bascet_products.objects.filter(product_buy=False)
             else:
                 raise serializers.ValidationError({1: 'ok'})
             if len(self.instance) == 0:
                 raise serializers.ValidationError({1: 'ok'})
-        elif request.method == "PUT" or request.method == "DELETE":
+        elif request.method == "DELETE":
             self.instance = Bascet_products.objects.get(id=pk)
+            if self.instance.product_buy == True:
+                raise serializers.ValidationError({1: 'ok'})
+        elif request.method == "PUT":
+            if user.id == pk:
+                self.instance = Bascet_products.objects.filter(accounts_id__in=[pk]) & Bascet_products.objects.filter(product_buy=True)
+            else:
+                raise serializers.ValidationError({1: 'ok'})
+            if len(self.instance) == 0:
+                raise serializers.ValidationError({1: 'ok'})
 
     def post(self, request):
         user = request.user
@@ -306,19 +315,29 @@ class Bascet_products_APP(APIView):
             return Response({"Error": "wrong id phone"})
         self.instance.delete()
         return Response(status=204)
+    def put(self,request,*args,**kwargs):
+        try:
+            self.h1(kwargs,request)
+        except:
+            return Response({"Error": "wrong id phone"})
+        return Response(Buscet_products_Seria(self.instance,many=True).data)
 class Bascet_products_not_aut_APP(APIView):
     serializer_class = Buscet_products_Seria2
     def h1(self, kw, request):
         pk = kw.get('pk', None)
         pk1 = kw.get('pk1',None)
         if request.method == "GET":
-            self.instance = Bascet_products.objects.all().filter(accounts_id__in=[pk])
+            self.instance = Bascet_products.objects.filter(accounts_id__in=[pk]) & Bascet_products.objects.filter(product_buy=False)#Bascet_products.objects.all().filter(accounts_id__in=[pk])
             if len(self.instance) == 0:
                 raise serializers.ValidationError({1: 'ok'})
-        elif request.method == "PUT" or request.method == "DELETE":
+        elif request.method == "DELETE":
             self.instance = Bascet_products.objects.get(id=pk)
             if self.instance.accounts_id!=pk1:
                 raise serializers.ValidationError({1: 'ok'})
+            elif self.instance.product_buy == True:
+                raise serializers.ValidationError({1: 'ok'})
+        elif request.method == "PUT":
+            self.instance = Bascet_products.objects.filter(accounts_id__in=[pk]) & Bascet_products.objects.filter(product_buy=True)
         else:
             raise serializers.ValidationError({1: 'ok'})
     def post(self, request):
@@ -336,6 +355,12 @@ class Bascet_products_not_aut_APP(APIView):
         try:
             self.h1(kwargs,request)
         except:
-            return Response({"Error": "wrong id phone"})
+            return Response({"Error": "wrong id product"})
         self.instance.delete()
         return Response(status=204)
+    def put(self,request,*args,**kwargs):
+        try:
+            self.h1(kwargs,request)
+        except:
+            return Response({"Error": "wrong id product"})
+        return Response(Buscet_products_Seria(self.instance,many=True).data)
