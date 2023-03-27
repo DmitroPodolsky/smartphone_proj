@@ -125,7 +125,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 #EMAIL_HOST_PASSWORD = 'sjijfcbejtnhcihv'
 EMAIL_FROM = 'drebsasaqq@gmail.com'
 EMAIL_HOST_USER = 'drebsasaqq@gmail.com'
-EMAIL_HOST_PASSWORD = 'dxylgvwvzrqjrwmd'#'bjlxnmfeqhmurdxu'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#'dxylgvwvzrqjrwmd'#'bjlxnmfeqhmurdxu'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
@@ -172,7 +172,11 @@ REST_FRAMEWORK = {
 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 'PAGE_SIZE': 5
 }
-CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [].extend(filter(None,os.environ.get('ALLOWED_HOSTS', '').split(','),)) # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
+CORS_ALLOWED_ORIGIN_REGEXES = [].extend(filter(None,os.environ.get('ALLOWED_HOSTS', '').split(','),))
+CORS_ORIGIN_ALLOW_ALL = False#True
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
