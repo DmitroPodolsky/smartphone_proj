@@ -1,3 +1,4 @@
+import os
 import time
 
 from psycopg2 import OperationalError as Psycopg2OpError
@@ -20,5 +21,7 @@ class Command(BaseCommand):
             except (Psycopg2OpError, OperationalError):
                 self.stdout.write('Database unavailable, waiting 1 second...')
                 time.sleep(1)
-
+        '''self.stdout.write(self.style.SUCCESS(f'{os.environ.get("ALLOWED_HOSTS")}'))
+        self.stdout.write(self.style.SUCCESS(f'{os.environ.get("EMAIL_HOST_USER")}'))
+        self.stdout.write(self.style.SUCCESS(f'{os.environ.get("EMAIL_HOST_PASSWORD")}'))'''
         self.stdout.write(self.style.SUCCESS('Database available!'))
