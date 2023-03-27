@@ -174,8 +174,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [].extend(filter(None,os.environ.get('ALLOWED_HOSTS', '').split(','),)) # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
-CORS_ALLOWED_ORIGIN_REGEXES = [].extend(filter(None,os.environ.get('ALLOWED_HOSTS', '').split(','),))
+CORS_ALLOWED_ORIGINS = [].extend(filter(None,os.environ.get('ALLOWED_HOSTS_HTTP', '').split(','),)) # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
+CORS_ALLOWED_ORIGIN_REGEXES = [].extend(filter(None,os.environ.get('ALLOWED_HOSTS_HTTP', '').split(','),))
 CORS_ORIGIN_ALLOW_ALL = False#True
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
