@@ -84,7 +84,7 @@ class Bascet_products(models.Model):
     name = models.TextField(default='1')
     price = models.IntegerField(default=0)
     count = models.IntegerField(default=1)
-    slug = models.TextField(default='ok')#models.SlugField(max_length=255, unique=True, db_index=True,default='zero')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True,default='zero')
     image = models.TextField(default='bref')
     time = models.DateTimeField(null=True,blank=True)
     def get_display_price(self):
