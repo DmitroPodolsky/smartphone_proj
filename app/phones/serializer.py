@@ -240,9 +240,9 @@ class Buscet_products_Seria(serializers.ModelSerializer):
             count=1
         price = int(product.price)*count
         try:
-            check = Bascet_products.objects.filter(slug=product.slug) & Bascet_products.objects.filter(product_buy=False) & Bascet_products.objects.filter(account_id=instance.id)
-            if len(check)!=0:
-                8/'i'
+            check = Bascet_products.objects.filter(slug__in=[product.slug]) & Bascet_products.objects.filter(product_buy=False) & Bascet_products.objects.filter(accounts_id__in=[instance.id])
+            if len(check)==0:
+                5/'ol'
         except:
             user = Bascet_products.objects.create(
                 group_product=group_product,
