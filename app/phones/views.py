@@ -287,11 +287,18 @@ class Bascet_products_APP(APIView):
             if self.instance.product_buy == True:
                 raise serializers.ValidationError({1: 'ok'})
         elif request.method == "PUT":
-            self.instance = Bascet_products.objects.filter(accounts_id__in=[user.id]) & Bascet_products.objects.filter(product_buy=True)
+            self.instance = Bascet_products.objects.get(id=pk)
+        elif request.method == "PATCH":
+            self.instance = Bascet_products.objects.filter(accounts_id__in=[user.id]) & Bascet_products.objects.filter(
+                product_buy=True)
             if len(self.instance) == 0:
                 raise serializers.ValidationError({1: 'ok'})
         else:
             raise serializers.ValidationError({1: 'ok'})
+        '''elif request.method == "PUT":
+                    self.instance = Bascet_products.objects.filter(accounts_id__in=[user.id]) & Bascet_products.objects.filter(product_buy=True)
+                    if len(self.instance) == 0:
+                        raise serializers.ValidationError({1: 'ok'})'''
 
     def post(self, request):
         user = request.user
@@ -319,6 +326,15 @@ class Bascet_products_APP(APIView):
             self.h1(kwargs,request)
         except:
             return Response({"Error": "wrong id phone"})
+        serializer = Buscet_products_Seria2(data=request.data, instance=self.instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(Buscet_products_Seria(self.instance).data)
+    def patch(self,request,*args,**kwargs):
+        try:
+            self.h1(kwargs,request)
+        except:
+            return Response({"Error": "wrong id phone"})
         return Response(Buscet_products_Seria(self.instance,many=True).data)
 class Bascet_products_not_aut_APP(APIView):
     serializer_class = Buscet_products_Seria2
@@ -336,7 +352,7 @@ class Bascet_products_not_aut_APP(APIView):
             elif self.instance.product_buy == True:
                 raise serializers.ValidationError({1: 'ok'})
         elif request.method == "PUT":
-            self.instance = Bascet_products.objects.filter(accounts_id__in=[pk]) & Bascet_products.objects.filter(product_buy=True)
+            self.instance = Bascet_products.objects.get(accounts_id__in=[pk]) & Bascet_products.objects.filter(product_buy=True)
             if len(self.instance) == 0:
                 raise serializers.ValidationError({1: 'ok'})
         else:

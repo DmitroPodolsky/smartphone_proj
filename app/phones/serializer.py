@@ -226,6 +226,7 @@ class Buscet_products_Seria(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         group_product = validated_data.get('group_product')
         product_id = validated_data.get('product_id')
+        count = validated_data.get('count')
         try:
             if group_product == 1:
                 product = Phones.objects.get(id=product_id)
@@ -235,16 +236,36 @@ class Buscet_products_Seria(serializers.ModelSerializer):
                 raise serializers.ValidationError({'error': 'this group does not exist'})
         except:
             raise serializers.ValidationError({'error': 'this product does not exist'})
-        user = Bascet_products.objects.create(
-            group_product = group_product,
-            product_id = product_id,
-            accounts_id = instance.id,
-            name = product.name,
-            price = product.price
-        )
+        if not count:
+            count=1
+        price = int(product.price)*count
+        try:
+            user = Bascet_products.objects.create(
+                group_product = group_product,
+                product_id = product_id,
+                accounts_id = instance.id,
+                name = product.name,
+                price = price,
+                count=count,
+                slug = product.slug,
+                image = product.photo1
+            )#product.price,
+        except:
+            raise serializers.ValidationError({'slug': 'this slug is already exist'})
         user.save()
         return user
 class Buscet_products_Seria2(serializers.ModelSerializer):
+    count = serializers.IntegerField(write_only=True)
+    class Meta:
+        model = Bascet_products
+        fields = '__all__'
+    def update(self, instance, validated_data):
+        count = validated_data.get('count')
+        instance.price = (int(instance.price)/instance.count)*count
+        instance.count = count
+        instance.save()
+        return instance
+'''class Buscet_products_Seria2(serializers.ModelSerializer):
     account_id = serializers.IntegerField(write_only=True)
     class Meta:
         model = Bascet_products
@@ -270,4 +291,4 @@ class Buscet_products_Seria2(serializers.ModelSerializer):
             price = product.price
         )
         user.save()
-        return user
+        return user'''
