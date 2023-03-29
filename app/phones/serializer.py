@@ -240,6 +240,21 @@ class Buscet_products_Seria(serializers.ModelSerializer):
             count=1
         price = int(product.price)*count
         try:
+            Bascet_products.objects.get(slug=product.slug)
+        except:
+            user = Bascet_products.objects.create(
+                group_product=group_product,
+                product_id=product_id,
+                accounts_id=instance.id,
+                name=product.name,
+                price=price,
+                count=count,
+                slug=product.slug,
+                image=product.photo1
+            )
+        else:
+            raise serializers.ValidationError({'slug': 'this slug is already exist1'})
+        '''try:
             user = Bascet_products.objects.create(
                 group_product = group_product,
                 product_id = product_id,
@@ -251,7 +266,7 @@ class Buscet_products_Seria(serializers.ModelSerializer):
                 image = product.photo1
             )#product.price,
         except:
-            raise serializers.ValidationError({'slug': 'this slug is already exist'})
+            raise serializers.ValidationError({'slug': 'this slug is already exist'})'''
         user.save()
         return user
 class Buscet_products_Seria2(serializers.ModelSerializer):
