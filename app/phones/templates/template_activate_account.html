@@ -1,10 +1,10 @@
 
 {% autoescape off %}
-Hi {{ user.username }},
+Здравствуйте {{ user.username }},
 
-your PASSWORD: {{ password }}
+ваш ПАРОЛЬ: {{ password }}
 
-Please click on the link below to confirm your registration:
+Пожалуйста перейдите по данной ссылке для завершения регистрации аккаунта:
 
 {{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 {% endautoescape %}

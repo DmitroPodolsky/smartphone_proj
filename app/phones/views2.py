@@ -119,8 +119,8 @@ def stripe_webhook(request):
             i.time = get_time()
             i.save()
         send_mail(
-            subject=f"Here is your products",
-            message=f"Thanks for your purchase. Here is the products you ordered. The are soon will be ",
+            subject=f"Вот ваши товары",
+            message=f"Спасибо за оплату. Ваши товары уже в заказе и в пути. С вами свяжеться служба доставки в ближайшое время",
             recipient_list=[customer_email],
             from_email="matt@test.com"
         )
