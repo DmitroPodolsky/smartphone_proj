@@ -23,6 +23,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='bascet_products',
             name='slug',
-            field=models.SlugField(default='zero', max_length=255, unique=True),
+            field=models.TextField(default='bref'),
         ),
     ]
