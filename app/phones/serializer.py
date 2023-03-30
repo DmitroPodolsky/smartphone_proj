@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+
 from django.db.models import Sum, Count
 from rest_framework import serializers,validators
 from django.contrib.auth.models import User
@@ -33,8 +33,6 @@ class RegisterS(serializers.ModelSerializer):
             username=username,
             password=password,
             email=email,
-            #first_name=first_name,
-            #last_name=last_name
         )
         user.set_password(password)
         user.save()
@@ -269,30 +267,3 @@ class Buscet_products_Seria2(serializers.ModelSerializer):
         instance.count = count
         instance.save()
         return instance
-'''class Buscet_products_Seria2(serializers.ModelSerializer):
-    account_id = serializers.IntegerField(write_only=True)
-    class Meta:
-        model = Bascet_products
-        fields = ['product_id','group_product','account_id']
-    def create(self, validated_data):
-        group_product = validated_data.get('group_product')
-        product_id = validated_data.get('product_id')
-        accounts_id = validated_data.get('account_id')
-        try:
-            if group_product == 1:
-                product = Phones.objects.get(id=product_id)
-            elif group_product == 2:
-                product = AirPods.objects.get(id=product_id)
-            else:
-                raise serializers.ValidationError({'error': 'this group does not exist'})
-        except:
-            raise serializers.ValidationError({'error': 'this product does not exist'})
-        user = Bascet_products.objects.create(
-            group_product = group_product,
-            product_id = product_id,
-            accounts_id = accounts_id,
-            name = product.name,
-            price = product.price
-        )
-        user.save()
-        return user'''

@@ -1,4 +1,4 @@
-from django.contrib import admin
+
 from django.contrib import admin
 from .models import AirPods,Phones,Phone_comments,Bascet_products,AirPods_comments
 admin.site.register(Phones)

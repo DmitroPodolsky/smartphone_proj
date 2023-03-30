@@ -1,9 +1,7 @@
 from django.db.models import Sum, Count
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
 from django.contrib.auth.models import User
-# Create your views here.
-from rest_framework import viewsets, generics
+from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response

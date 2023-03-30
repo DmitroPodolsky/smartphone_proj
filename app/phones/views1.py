@@ -1,18 +1,14 @@
-from typing import Protocol
-from django.shortcuts import render, redirect
+
+from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
-from .forms import UserRegistrationForm
 from .passwords import generate_password
 from .serializer import RegisterS2,SetPassword_No
 from .tokens import account_activation_token
@@ -88,29 +84,7 @@ def RedirectEmail(request, user, to_email):
                 received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
     else:
         messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
-'''@csrf_exempt
-def register(request):
-    if request.method == "POST":
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active=False
-            user.save()
-            activateEmail(request, user, form.cleaned_data.get('email'))
-            return redirect('/')
 
-        else:
-            for error in list(form.errors.values()):
-                messages.error(request, error)
-
-    else:
-        form = UserRegistrationForm()
-
-    return render(
-        request=request,
-        template_name="register.html",
-        context={"form": form}
-        )'''
 class ApiCreate2(APIView):
     permission_classes = ()
     def post(self,request):
@@ -132,11 +106,3 @@ class ApiForgetPssword(APIView):
         user = serializer.save()
         RedirectEmail(request, user, user.email)
         return Response('ok')
-
-'''def login(request):
-    return render(request, 'login.html')
-def auth(request):
-    return render(request, 'login1.html')
-@login_required
-def home(request):
-    return render(request, 'home.html')'''

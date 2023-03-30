@@ -119,13 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_USE_SSL = False
-#EMAIL_FROM = 'podolskiydmitry@gmail.com'
-#EMAIL_HOST_USER = 'podolskiydmitry@gmail.com'
-#EMAIL_HOST_PASSWORD = 'sjijfcbejtnhcihv'
-EMAIL_FROM = os.environ.get('EMAIL_HOST_USER')#'garasfamal@gmail.com'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')#'garasfamal@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#'kqmhilnpqqxpkewr'#os.environ.get('EMAIL_HOST_PASSWORD')#'dxylgvwvzrqjrwmd'#'bjlxnmfeqhmurdxu'
+EMAIL_FROM = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
@@ -191,12 +187,6 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
-'''LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
-
-LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'login'''
-
 SOCIAL_AUTH_GITHUB_KEY = '81cfb1c6ffebeecbc567'
 SOCIAL_AUTH_GITHUB_SECRET = 'f02bddf1c3b58b84ef6137cb03c26517f354f155'
 
