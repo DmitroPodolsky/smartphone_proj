@@ -13,44 +13,26 @@ from .passwords import generate_password
 from .serializer import RegisterS2,SetPassword_No
 from .tokens import account_activation_token
 
-def activate(request, uidb64, token):
+def activate_simple(uid):
     User = get_user_model()
     try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
+        return User.objects.get(pk=uid)
     except:
-        user = None
-
+        return None
+def activate(request, uidb64, token):
+    user = activate_simple(force_str(urlsafe_base64_decode(uidb64)))
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.first_name = ''
         user.save()
-
-        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
-        return redirect('http://smartshopcenter.org:3000/sign-in')
-    else:
-        messages.error(request, "Activation link is invalid!")
-
     return redirect('http://smartshopcenter.org:3000/sign-in')
 
 def reset(request, uidb64, token):
-    User = get_user_model()
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except:
-        user = None
-
+    user = activate_simple(force_str(urlsafe_base64_decode(uidb64)))
     if user is not None and account_activation_token.check_token(user, token):
         user.set_password(user.first_name)
         user.first_name = ''
         user.save()
-
-        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
-        return redirect('http://smartshopcenter.org:3000/sign-in')
-    else:
-        messages.error(request, "Activation link is invalid!")
-
     return redirect('http://smartshopcenter.org:3000/sign-in')
 
 def activateEmail(request, user, to_email):

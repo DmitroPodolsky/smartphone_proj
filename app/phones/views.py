@@ -73,22 +73,6 @@ class ApiCreate(APIView):
             },
             'token': token
         },status=201)
-'''class ApiCreate_Fast(APIView):
-    permission_classes = ()
-
-    def post(self, request):
-        serializer = RegisterS2(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        user.is_active = False
-        user.save()
-        return Response({
-            'user_info': {
-                'id': user.id,
-                'username': user.username,
-                'email': user.email
-            }
-        }, status=201)'''
 class ApiSetPassword(APIView):
     permission_classes = ()
     def put(self,request):
@@ -329,48 +313,3 @@ class Bascet_products_APP(APIView):
         except:
             return Response({"Error": "wrong id phone"})
         return Response(Buscet_products_Seria(self.instance,many=True).data)
-'''class Bascet_products_not_aut_APP(APIView):
-    serializer_class = Buscet_products_Seria2
-    def h1(self, kw, request):
-        pk = kw.get('pk', None)
-        pk1 = kw.get('pk1',None)
-        if request.method == "GET":
-            self.instance = Bascet_products.objects.filter(accounts_id__in=[pk]) & Bascet_products.objects.filter(product_buy=False)#Bascet_products.objects.all().filter(accounts_id__in=[pk])
-            if len(self.instance) == 0:
-                raise serializers.ValidationError({1: 'ok'})
-        elif request.method == "DELETE":
-            self.instance = Bascet_products.objects.get(id=pk)
-            if self.instance.accounts_id!=pk1:
-                raise serializers.ValidationError({1: 'ok'})
-            elif self.instance.product_buy == True:
-                raise serializers.ValidationError({1: 'ok'})
-        elif request.method == "PUT":
-            self.instance = Bascet_products.objects.get(accounts_id__in=[pk]) & Bascet_products.objects.filter(product_buy=True)
-            if len(self.instance) == 0:
-                raise serializers.ValidationError({1: 'ok'})
-        else:
-            raise serializers.ValidationError({1: 'ok'})
-    def post(self, request):
-        serializer = Buscet_products_Seria2(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({"product": "published"}, status=201)
-    def get(self,request,*args,**kwargs):
-        try:
-            self.h1(kwargs,request)
-        except:
-            return Response({"Error": "wrong id user"})
-        return Response(Buscet_products_Seria(self.instance,many=True).data)
-    def delete(self,request,*args,**kwargs):
-        try:
-            self.h1(kwargs,request)
-        except:
-            return Response({"Error": "wrong id product"})
-        self.instance.delete()
-        return Response(status=204)
-    def put(self,request,*args,**kwargs):
-        try:
-            self.h1(kwargs,request)
-        except:
-            return Response({"Error": "wrong id product"})
-        return Response(Buscet_products_Seria(self.instance,many=True).data)'''''

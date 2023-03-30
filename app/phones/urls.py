@@ -10,7 +10,6 @@ urlpatterns = [
     path('setpassword/', views.ApiSetPassword.as_view()),
     path('deluser/', views.ApiDelUser.as_view()),
     path('setuser/', views.ApiSetUser.as_view()),
-    #path('fast_create/', views.ApiCreate_Fast.as_view()),
     path('create/', views1.Api_Create_Account.as_view()),
     path('activate/<uidb64>/<token>', views1.activate, name='activate'),
     path('reset/', views1.ApiForgetPssword.as_view()),
