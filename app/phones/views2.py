@@ -106,24 +106,66 @@ def stripe_webhook(request):
         customer_email = session['customer_details']['email']
         print(customer_email)
         products = Bascet_products.objects.filter(accounts_id=session['metadata']['id']) & Bascet_products.objects.filter(product_buy=False)
+        check_in=0
+        check_in_inf = False
         for i in products:
+            a=0
             if i.group_product == 1:
                 change = Phones.objects.get(id=i.product_id)
-                change.count-=1
-                change.save()
+                change.count-=i.count
+                if change.count < 0:
+                    change.count += i.count
+                    a = 1
+                    send_mail(
+                        subject=f"{change.name}",
+                        message=f"к сожалению данного продукта пока нету в наличии. вся оплата будет возращена за данный товар. С вами свяжеться техническая поддержка в ближайшое время доставки в ближайшое время",
+                        recipient_list=[customer_email],
+                        from_email="matt@test.com"
+                    )
+                else:
+                    change.save()
             elif i.group_product == 2:
                 change = AirPods.objects.get(id=i.product_id)
-                change.count-=1
-                change.save()
-            i.product_buy = True
-            i.time = get_time()
-            i.save()
-        send_mail(
-            subject=f"Вот ваши товары",
-            message=f"Спасибо за оплату. Ваши товары уже в заказе и в пути. С вами свяжеться служба доставки в ближайшое время",
-            recipient_list=[customer_email],
-            from_email="matt@test.com"
-        )
+                change.count-=i.count
+                if change.count<0:
+                    change.count+=i.count
+                    a=1
+                    send_mail(
+                        subject=f"{change.name}",
+                        message=f"к сожалению данного продукта пока нету в наличии. вся оплата будет возращена за данный товар. С вами свяжеться техническая поддержка в ближайшое время доставки в ближайшое время",
+                        recipient_list=[customer_email],
+                        from_email="matt@test.com"
+                    )
+                else:
+                    change.save()
+            if a==0:
+                check_in_inf = True
+                i.product_buy = True
+                i.time = get_time()
+                i.save()
+            else:
+                check_in=1
+        if check_in==0:
+            send_mail(
+                subject=f"Вот ваши товары",
+                message=f"Спасибо за оплату. Ваши товары уже в заказе и в пути. С вами свяжеться служба доставки в ближайшое время",
+                recipient_list=[customer_email],
+                from_email="matt@test.com"
+            )
+        elif check_in==1 and check_in_inf==True:
+            send_mail(
+                subject=f"Вот ваши товары",
+                message=f"Спасибо за оплату. Ваши товары уже в заказе и в пути.Некоторые товари были отменены в ходе оплаты, вам деньги компенсирует администрация. С вами свяжеться служба доставки в ближайшое время",
+                recipient_list=[customer_email],
+                from_email="matt@test.com"
+            )
+        else:
+            send_mail(
+                subject=f"Отмена покупки",
+                message=f"Данные товари которые вы заказывали были отменены так как их в наличии нету,вам в ближайшое время компенсируют полностью затраты",
+                recipient_list=[customer_email],
+                from_email="matt@test.com"
+            )
     '''elif event["type"] == "payment_intent.succeeded":
         intent = event['data']['object']
 
