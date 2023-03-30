@@ -18,13 +18,13 @@ from django.urls import path, include
 from rest_framework import routers
 from django.contrib.auth import views as auth_views
 from phones import views1
-from phones.views import AirPods_APP, Get_Phone_slug_APP, Phones_APP, Phones_comments_APP, Get_AirPod_slug_APP
+from phones.views import AirPods_APP, Get_Phone_slug_APP, Phones_APP, Get_AirPod_slug_APP
 from django.conf.urls.static import static
 from django.conf import settings
 
-from phones.views2 import stripe_webhook,CreateCheckoutSessionView#CancelView, SuccessView, ProductLandingPageView,StripeIntentView,
+from phones.views2 import stripe_webhook,CreateCheckoutSessionView
 
-router = routers.DefaultRouter()#создаёт две ссылки на себя с помощью домена и на SimpleRouter()
+router = routers.DefaultRouter()
 router1 = routers.DefaultRouter()
 router1.register(r'func',AirPods_APP)
 router.register(r'func',Phones_APP)
@@ -39,7 +39,6 @@ urlpatterns = [
     path('api/airpods/',include(router1.urls)),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', include('social_django.urls', namespace='social')),
-    #path('create-payment-intent/<pk>/', StripeIntentView.as_view(), name='create-payment-intent'),
     path('webhooks/stripe/',stripe_webhook,name='stripe-webhook'),
     path('create-checkout-session/<int:pk>/', CreateCheckoutSessionView,name='create-checkout-session')
 ]

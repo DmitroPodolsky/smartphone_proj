@@ -20,13 +20,11 @@ def CreateCheckoutSessionView(request, *args, **kwargs):
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
-                    # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
                     'price_data': {
                         'currency': 'usd',
                         'unit_amount': round(product['total1']/11386)*100,
                         'product_data': {
                             'name': 'общая сумма всех товаров'
-                            # 'images' тут изображение может быть товара
                         }
 
                     },
@@ -38,7 +36,6 @@ def CreateCheckoutSessionView(request, *args, **kwargs):
             success_url='http://smartshopcenter.org:3000',
             cancel_url='http://smartshopcenter.org:3000',
         )
-        #stripe_checkout_url = f'https://checkout.stripe.com/c/pay/{checkout_session.id}'
         return JsonResponse({'id': checkout_session.url})
 
 def get_time():
@@ -55,13 +52,10 @@ def stripe_webhook(request):
             payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
         )
     except ValueError as e:
-        # Invalid payload
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
         return HttpResponse(status=400)
     if event['type'] == 'checkout.session.completed':
-        # Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
         session = event['data']['object']
         customer_email = session['customer_details']['email']
         print(customer_email)
@@ -127,23 +121,3 @@ def stripe_webhook(request):
                 from_email="matt@test.com"
             )
     return HttpResponse(status=200)
-'''class StripeIntentView(View):
-    def post(self, request, *args, **kwargs):
-        try:
-            req_json = json.loads(request.body)
-            customer = stripe.Customer.create(email=req_json['email'])
-            product_id = self.kwargs["pk"]
-            product = Bascet_products.objects.get(id=product_id)
-            intent = stripe.PaymentIntent.create(
-                amount=product.price,
-                currency='usd',
-                customer=customer['id'],
-                metadata={
-                    "product_id": product.id
-                }
-            )
-            return JsonResponse({
-                'clientSecret': intent['client_secret']
-            })
-        except Exception as e:
-            return JsonResponse({ 'error': str(e) })'''

@@ -85,7 +85,7 @@ def RedirectEmail(request, user, to_email):
     else:
         messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
 
-class ApiCreate2(APIView):
+class Api_Create_Account(APIView):
     permission_classes = ()
     def post(self,request):
         serializer = RegisterS2(data=request.data)

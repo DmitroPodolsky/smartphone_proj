@@ -73,7 +73,7 @@ class ApiCreate(APIView):
             },
             'token': token
         },status=201)
-class ApiCreate_Fast(APIView):
+'''class ApiCreate_Fast(APIView):
     permission_classes = ()
 
     def post(self, request):
@@ -88,7 +88,7 @@ class ApiCreate_Fast(APIView):
                 'username': user.username,
                 'email': user.email
             }
-        }, status=201)
+        }, status=201)'''
 class ApiSetPassword(APIView):
     permission_classes = ()
     def put(self,request):
@@ -145,7 +145,7 @@ class Get_Phone_slug_APP(APIView):
                         'similar': Phone_Seria(Phones.objects.filter(brand__in=[instance.brand]),many=True).data,
                         'also_buy': AirPods_Seria(AirPods.objects.filter(brand__in=[instance.brand]),many=True).data})
 class Phones_comments_APP(APIView):
-    queryset =  Phone_comments.objects.all()#.prefetch_related('accounts','phone')
+    queryset =  Phone_comments.objects.all()
     serializer_class = Phones_comments_Seria
     permission_classes = [IsAuthenticatedOrReadOnlyAndOwner]
     def get_queryset(self):
@@ -293,11 +293,6 @@ class Bascet_products_APP(APIView):
                 raise serializers.ValidationError({1: 'ok'})
         else:
             raise serializers.ValidationError({1: 'ok'})
-        '''elif request.method == "PUT":
-                    self.instance = Bascet_products.objects.filter(accounts_id__in=[user.id]) & Bascet_products.objects.filter(product_buy=True)
-                    if len(self.instance) == 0:
-                        raise serializers.ValidationError({1: 'ok'})'''
-
     def post(self, request):
         user = request.user
         instance = User.objects.get(pk=user.id)
@@ -334,7 +329,7 @@ class Bascet_products_APP(APIView):
         except:
             return Response({"Error": "wrong id phone"})
         return Response(Buscet_products_Seria(self.instance,many=True).data)
-class Bascet_products_not_aut_APP(APIView):
+'''class Bascet_products_not_aut_APP(APIView):
     serializer_class = Buscet_products_Seria2
     def h1(self, kw, request):
         pk = kw.get('pk', None)
@@ -378,4 +373,4 @@ class Bascet_products_not_aut_APP(APIView):
             self.h1(kwargs,request)
         except:
             return Response({"Error": "wrong id product"})
-        return Response(Buscet_products_Seria(self.instance,many=True).data)
+        return Response(Buscet_products_Seria(self.instance,many=True).data)'''''
