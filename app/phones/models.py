@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Phones(models.Model):
     name = models.TextField()
     price = models.TextField()
@@ -33,9 +34,12 @@ class Phones(models.Model):
     audio = models.TextField(default='hello')
     types = models.TextField(default='смартфон')
     count = models.IntegerField(default=0)
-    rating = models.DecimalField(max_digits=3,decimal_places=2,default=5)
+    rating = models.DecimalField(max_digits=3, decimal_places=2, default=5)
+
     def __str__(self):
         return self.name
+
+
 class AirPods(models.Model):
     name = models.TextField()
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
@@ -54,30 +58,37 @@ class AirPods(models.Model):
     country = models.TextField()
     garantee = models.TextField()
     time_work = models.TextField()
-    description=models.TextField(default='1')
+    description = models.TextField(default='1')
     weight = models.TextField(default='1')
     corpus = models.TextField(default='1')
     vid = models.TextField(default='1')
     dop_infa = models.TextField(default='1')
     types = models.TextField(default='extra')
     count = models.IntegerField(default=0)
-    rating = models.DecimalField(max_digits=3,decimal_places=2,default=5)
+    rating = models.DecimalField(max_digits=3, decimal_places=2, default=5)
+
     def __str__(self):
         return self.name
+
+
 class Phone_comments(models.Model):
     comment = models.TextField()
-    accounts = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
-    phone = models.ForeignKey(Phones,on_delete=models.CASCADE,null=True,blank=True)
+    accounts = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    phone = models.ForeignKey(Phones, on_delete=models.CASCADE, null=True, blank=True)
     rate = models.IntegerField()
     username = models.TextField(default='1')
+
+
 class AirPods_comments(models.Model):
     comment = models.TextField()
-    accounts = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
-    airpod = models.ForeignKey(AirPods,on_delete=models.CASCADE,null=True,blank=True)
+    accounts = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    airpod = models.ForeignKey(AirPods, on_delete=models.CASCADE, null=True, blank=True)
     rate = models.IntegerField()
     username = models.TextField(default='1')
+
+
 class Bascet_products(models.Model):
-    accounts = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    accounts = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     group_product = models.IntegerField()
     product_id = models.IntegerField()
     product_buy = models.BooleanField(default=False)
@@ -86,6 +97,7 @@ class Bascet_products(models.Model):
     count = models.IntegerField(default=1)
     slug = models.TextField(default='bref')
     image = models.TextField(default='bref')
-    time = models.DateTimeField(null=True,blank=True)
+    time = models.DateTimeField(null=True, blank=True)
+
     def get_display_price(self):
         return self.price

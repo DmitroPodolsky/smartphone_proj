@@ -22,25 +22,25 @@ from phones.views import AirPods_APP, Get_Phone_slug_APP, Phones_APP, Get_AirPod
 from django.conf.urls.static import static
 from django.conf import settings
 
-from phones.views2 import stripe_webhook,CreateCheckoutSessionView
+from phones.views2 import stripe_webhook, CreateCheckoutSessionView
 
 router = routers.DefaultRouter()
 router1 = routers.DefaultRouter()
-router1.register(r'func',AirPods_APP)
-router.register(r'func',Phones_APP)
+router1.register(r'func', AirPods_APP)
+router.register(r'func', Phones_APP)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/phones/',include(router.urls)),
-    path('api/accounts/',include('phones.urls')),
-    path('api/phone/<slug:pk>/',Get_Phone_slug_APP.as_view()),
-    path('api/airpod/<slug:pk>/',Get_AirPod_slug_APP.as_view()),
-    path('api/comments/',include('phones.urls1')),
-    path('api/airpods/',include(router1.urls)),
+    path('api/phones/', include(router.urls)),
+    path('api/accounts/', include('phones.urls')),
+    path('api/phone/<slug:pk>/', Get_Phone_slug_APP.as_view()),
+    path('api/airpod/<slug:pk>/', Get_AirPod_slug_APP.as_view()),
+    path('api/comments/', include('phones.urls1')),
+    path('api/airpods/', include(router1.urls)),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', include('social_django.urls', namespace='social')),
-    path('webhooks/stripe/',stripe_webhook,name='stripe-webhook'),
-    path('create-checkout-session/<int:pk>/', CreateCheckoutSessionView,name='create-checkout-session')
+    path('webhooks/stripe/', stripe_webhook, name='stripe-webhook'),
+    path('create-checkout-session/<int:pk>/', CreateCheckoutSessionView, name='create-checkout-session')
 ]
 
 if settings.DEBUG:

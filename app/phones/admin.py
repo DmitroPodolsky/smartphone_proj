@@ -1,6 +1,6 @@
-
 from django.contrib import admin
-from .models import AirPods,Phones,Phone_comments,Bascet_products,AirPods_comments
+from .models import AirPods, Phones, Phone_comments, Bascet_products, AirPods_comments
+
 admin.site.register(Phones)
 admin.site.register(Phone_comments)
 admin.site.register(AirPods)

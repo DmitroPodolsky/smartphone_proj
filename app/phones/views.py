@@ -128,6 +128,20 @@ class Get_Phone_slug_APP(APIView):
         return Response({'phone': Phone_Seria(instance).data,
                         'similar': Phone_Seria(Phones.objects.filter(brand__in=[instance.brand]),many=True).data,
                         'also_buy': AirPods_Seria(AirPods.objects.filter(brand__in=[instance.brand]),many=True).data})
+class Get_AirPod_slug_APP(APIView):
+    permission_classes = ()
+    def get(self,request,*args,**kwargs):
+        pk = kwargs.get('pk',None)#pk работает как айди объекта
+        if not pk:
+            return Response({"Error":"wrong slug user"})
+        try:
+            instance=AirPods.objects.get(slug=pk)
+        except:
+            return Response({"Error":"wrong slug user"})
+        return Response({'airpod':AirPods_Seria(instance).data,
+                         'similar': AirPods_Seria(AirPods.objects.filter(brand__in=[instance.brand]), many=True).data,
+                         'also_buy': Phone_Seria(Phones.objects.filter(brand__in=[instance.brand]), many=True).data}
+                        )
 class Phones_comments_APP(APIView):
     queryset =  Phone_comments.objects.all()
     serializer_class = Phones_comments_Seria
@@ -179,20 +193,6 @@ class Phones_comments_APP(APIView):
         phone.rating = check['total1'] / check['total2']
         phone.save()
         return Response(status=204)
-class Get_AirPod_slug_APP(APIView):
-    permission_classes = ()
-    def get(self,request,*args,**kwargs):
-        pk = kwargs.get('pk',None)#pk работает как айди объекта
-        if not pk:
-            return Response({"Error":"wrong slug user"})
-        try:
-            instance=AirPods.objects.get(slug=pk)
-        except:
-            return Response({"Error":"wrong slug user"})
-        return Response({'airpod':AirPods_Seria(instance).data,
-                         'similar': AirPods_Seria(AirPods.objects.filter(brand__in=[instance.brand]), many=True).data,
-                         'also_buy': Phone_Seria(Phones.objects.filter(brand__in=[instance.brand]), many=True).data}
-                        )
 class AirPods_comments_APP(APIView):
     queryset =  AirPods_comments.objects.all()#.prefetch_related('accounts','phone')
     serializer_class = AirPods_comments_Seria

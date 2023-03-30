@@ -10,8 +10,4 @@ urlpatterns = [
     path('add_product/',views.Bascet_products_APP.as_view()),
     path('operate_product/<int:pk>/',views.Bascet_products_APP.as_view()),
     path('get_traffic/',views.Bascet_products_APP.as_view()),
-    #path('not_aut_add_product/',views.Bascet_products_not_aut_APP.as_view()),
-    #path('not_aut_get_product/<int:pk>/',views.Bascet_products_not_aut_APP.as_view()),
-    #path('not_aut_del_product/<int:pk>/<int:pk1>/',views.Bascet_products_not_aut_APP.as_view()),
-    #path('not_aut_get_traffic/<int:pk>/',views.Bascet_products_not_aut_APP.as_view()),
     ]
