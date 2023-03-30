@@ -88,7 +88,7 @@ def RedirectEmail(request, user, to_email):
                 received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
     else:
         messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
-@csrf_exempt
+'''@csrf_exempt
 def register(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -110,7 +110,7 @@ def register(request):
         request=request,
         template_name="register.html",
         context={"form": form}
-        )
+        )'''
 class ApiCreate2(APIView):
     permission_classes = ()
     def post(self,request):
@@ -133,10 +133,10 @@ class ApiForgetPssword(APIView):
         RedirectEmail(request, user, user.email)
         return Response('ok')
 
-def login(request):
+'''def login(request):
     return render(request, 'login.html')
 def auth(request):
     return render(request, 'login1.html')
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html')'''

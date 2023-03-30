@@ -67,7 +67,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +79,7 @@ TEMPLATES = [
             ],
         },
     },
-]
+]#BASE_DIR/'templates'
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
@@ -191,11 +191,11 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
-LOGIN_URL = 'login'
+'''LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'''
 
 SOCIAL_AUTH_GITHUB_KEY = '81cfb1c6ffebeecbc567'
 SOCIAL_AUTH_GITHUB_SECRET = 'f02bddf1c3b58b84ef6137cb03c26517f354f155'

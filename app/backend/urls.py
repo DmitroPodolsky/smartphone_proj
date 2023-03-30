@@ -22,8 +22,7 @@ from phones.views import AirPods_APP, Get_Phone_slug_APP, Phones_APP, Phones_com
 from django.conf.urls.static import static
 from django.conf import settings
 
-from phones.views2 import StripeIntentView, stripe_webhook, CancelView, SuccessView, ProductLandingPageView, \
-    CreateCheckoutSessionView
+from phones.views2 import StripeIntentView, stripe_webhook,CreateCheckoutSessionView#CancelView, SuccessView, ProductLandingPageView,
 
 router = routers.DefaultRouter()#создаёт две ссылки на себя с помощью домена и на SimpleRouter()
 router1 = routers.DefaultRouter()
@@ -38,16 +37,16 @@ urlpatterns = [
     path('api/airpod/<slug:pk>/',Get_AirPod_slug_APP.as_view()),
     path('api/comments/',include('phones.urls1')),
     path('api/airpods/',include(router1.urls)),
-    path('login/', views1.login, name='login'),
-    path('auth/', views1.auth),
+    #path('login/', views1.login, name='login'),
+    #path('auth/', views1.auth),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path("", views1.home, name='home'),
+    #path("", views1.home, name='home'),
     path('', include('social_django.urls', namespace='social')),
     path('create-payment-intent/<pk>/', StripeIntentView.as_view(), name='create-payment-intent'),
     path('webhooks/stripe/',stripe_webhook,name='stripe-webhook'),
-    path('cancel/',CancelView.as_view(),name='cancel'),
-    path('success/',SuccessView.as_view(),name='success'),
-    path('j/',ProductLandingPageView.as_view()),
+    #path('cancel/',CancelView.as_view(),name='cancel'),
+    #path('success/',SuccessView.as_view(),name='success'),
+    #path('j/',ProductLandingPageView.as_view()),
     path('create-checkout-session/<int:pk>/', CreateCheckoutSessionView,name='create-checkout-session')
 ]
 

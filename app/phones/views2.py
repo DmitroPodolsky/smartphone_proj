@@ -18,7 +18,7 @@ from .models import Phones,Bascet_products,AirPods
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-class SuccessView(TemplateView):
+'''class SuccessView(TemplateView):
     template_name = 'success.html'
 
 
@@ -36,9 +36,7 @@ class ProductLandingPageView(TemplateView):
             "product": product,
             "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
         })
-        return context
-
-
+        return context'''
 
 @csrf_exempt
 def CreateCheckoutSessionView(request, *args, **kwargs):
