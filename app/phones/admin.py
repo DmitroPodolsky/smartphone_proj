@@ -6,4 +6,3 @@ admin.site.register(Phone_comments)
 admin.site.register(AirPods)
 admin.site.register(Bascet_products)
 admin.site.register(AirPods_comments)
-# Register your models here.
