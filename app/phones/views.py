@@ -1,4 +1,5 @@
 from django.db.models import Sum, Count
+from django.shortcuts import redirect
 from django_filters.rest_framework import DjangoFilterBackend
 from django.contrib.auth.models import User
 from rest_framework import viewsets
@@ -368,3 +369,5 @@ class Bascet_products_APP(APIView):
         except:
             return Response({"Error": "wrong id phone"})
         return Response(Buscet_products_Seria(self.instance, many=True).data)
+def Redirect_front(request):
+    return redirect('http://smartshopcenter.org:3000/')

@@ -18,7 +18,7 @@ from django.urls import path, include
 from rest_framework import routers
 from django.contrib.auth import views as auth_views
 from phones import views1
-from phones.views import AirPods_APP, Get_Phone_slug_APP, Phones_APP, Get_AirPod_slug_APP
+from phones.views import AirPods_APP, Get_Phone_slug_APP, Phones_APP, Get_AirPod_slug_APP, Redirect_front
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -40,7 +40,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', include('social_django.urls', namespace='social')),
     path('webhooks/stripe/', stripe_webhook, name='stripe-webhook'),
-    path('create-checkout-session/<int:pk>/', CreateCheckoutSessionView, name='create-checkout-session')
+    path('create-checkout-session/<int:pk>/', CreateCheckoutSessionView, name='create-checkout-session'),
+    path('', Redirect_front)
 ]
 
 if settings.DEBUG:
