@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 </head>
 <body>
-<img src="photo_2023-04-03_17-40-48.jpg">
+<img src="{% static 'img/photo_2023-04-03_17-40-48.jpg' %}" >
 <h1>Здравствуйте {{ user.username }},</h1>
 
 ваш ПАРОЛЬ: {{ password }}
@@ -13,4 +15,3 @@
 {{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 </body>
 </html>
-
