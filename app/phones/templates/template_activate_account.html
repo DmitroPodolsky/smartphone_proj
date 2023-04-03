@@ -4,15 +4,13 @@
 </head>
 <body>
 <img src="photo_2023-04-03_17-40-48.jpg">
-{% autoescape off %}
-Здравствуйте {{ user.username }},
+<h1>Здравствуйте {{ user.username }},</h1>
 
 ваш ПАРОЛЬ: {{ password }}
 
 Пожалуйста перейдите по данной ссылке для завершения регистрации аккаунта:
 
 {{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
-{% endautoescape %}
 </body>
 </html>
 
