@@ -1,5 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
 <img src="photo_2023-04-03_17-40-48.jpg">
-
 {% autoescape off %}
 Здравствуйте {{ user.username }},
 
@@ -9,3 +13,6 @@
 
 {{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 {% endautoescape %}
+</body>
+</html>
+
