@@ -27,7 +27,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.first_name = ''
         user.save()
-    return redirect('http://smartshopcenter.org:3000/sign-in')
+    return redirect('http://localhost:3000')#'http://smartshopcenter.org:3000/sign-in'
 
 
 def reset(request, uidb64, token):
@@ -36,7 +36,7 @@ def reset(request, uidb64, token):
         user.set_password(user.first_name)
         user.first_name = ''
         user.save()
-    return redirect('http://smartshopcenter.org:3000/sign-in')
+    return redirect('http://localhost:3000')#'http://smartshopcenter.org:3000/sign-in'
 
 
 def activateEmail(request, user, to_email):

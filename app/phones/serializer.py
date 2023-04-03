@@ -308,7 +308,7 @@ class Buscet_products_Seria2(serializers.ModelSerializer):
 
     class Meta:
         model = Bascet_products
-        fields = '__all__'
+        fields = ['count']
 
     def update(self, instance, validated_data):
         count = validated_data.get('count')

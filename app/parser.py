@@ -117,6 +117,7 @@ for i in urls:
                 if 0 == len(giga_vstoeno_) or '-' == giga_vstoeno_:
                     giga_vstoeno_ = '64'
                 giga_vstoeno_ = giga_vstoeno_.replace(' ГБ', '')
+                giga_vstoeno_ = giga_vstoeno_.replace('ГБ', '')
                 if ' U<' in giga_vstoeno_:
                     giga_vstoeno_ = giga_vstoeno_.replace(' U<', '')
             if j.find('td').text == 'Объем оперативной памяти':
