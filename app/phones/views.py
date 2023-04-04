@@ -376,10 +376,12 @@ class Bascet_products_APP(APIView):
             tranc.add(i.time)
         print(tranc)
         tranc=list(tranc)
+        n=0
         for i in tranc:
+            n+=1
             print(i)
-            answer[i] = Buscet_products_Seria(self.instance & Bascet_products.objects.filter(time=i), many=True).data
-            print(answer[i])
+            answer[n] = Buscet_products_Seria(self.instance & Bascet_products.objects.filter(time=i), many=True).data
+            print(answer[n])
         print(answer)
         return Response(answer)#Buscet_products_Seria(self.instance, many=True).data)
 def Redirect_front(request):
