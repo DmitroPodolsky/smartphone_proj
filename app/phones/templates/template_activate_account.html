@@ -1,17 +1,9 @@
-
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-</head>
-<body>
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJsAAAB0CAMAAAClrbDpAAAAmVBMVEX////mfiJQVl2WmZ3s7O0xOkP4+Pj44NDleQ/xu5vldwDldQDmfBrkcgDuq33//fwPHyzi4+T0zLXpkU9cYWcrNT755dj99O7ywKHvr4bjawBJUFcACR3a29xES1PT1NXCxMbnhz/ql13tpnT32cTwt5DnhDDGztPi6e0cKDSmqKxpbnMjLjiKjpIFGSiztbjiYQB8f4Psn2mwb7L8AAADR0lEQVR4nO2Z246bMBBAzf2WQA0shlBikwBtyVI2+f+P69ghbbeN9iHSxjzMkZKx4eVohjGWIQRBEARBEARBEARBEGSlFB5QMPnvsetEt9IN1vq+Hx6CLYRdegghtEy31EKxMQxjE/c+hCg9qtlaEpdGYONXsXQLg+qqqFtq4Sht/EAlzK8CNTvqllqQToZfXlQxL6V0Mza6pa6wraGqeFBuB1VhY7uOZrjKRF12desWVd1aikquHf6ukyuJH7beTsZtpVtLkqSBoqjiCgiK6zRNdIsBSRVLjizoFeyo5tUa3NgQqpoWRhSGfjhcaxoOa2iGRPWAsUtaFQe2U2tItoa8kW632Wy2PQm219jLuOt0a11Js7YtE5KUwzAEMrZtto4lBPj2fRnc6vj9my6V/9hb/1yw9lo87mH+52Zq8bgHuj0Guj0Guj0Guj0Guj0Guj0Guj1GbrrvMXPdSr/Jf9S5xDRNFesfK3J7kTjWOI6Wo8ZrcnMcZ/H5e7wGTq+OZBqtcVKj15Nupd/Q+ucX4KtEDn7WVLfSH1z7Pa5uIQR5BpTbH973uoIkqfckm3dM5mk/3r8lYOlILuEQVUkWP9dKQfc2sZv7907g1r0VrOuSTMdZNK9VGPl5cscTJJBOp5mQmZ5H4UwWKd/kYWpyiIOsJIQF2dEjLPZiOft0cmeE560+21Y901qQSdimgG2SaOzXmRO2iS4duBll+daRrO36yGObNq2ecZLpitOXmewb0uxhE6l2leNEcsgdeZGvKlb5u0DVdNuzN2iJ4ZL4KUna/vPdAPFC9vzmxs/n3CK5uLkBsc8O4Bb2nizwoU0icHtCd8h3Jd//caO1rfJ2c/OgdNWwuDEoKzFimTdmfP4DN9azgDXEATdHujV7ys3FrbZmctxdLttyqSk5bvqDUTCj7bPoCR8cxDRxUISVBJqUcyLOsy2gT4lsWXj8ur6HXkghYQH80ipghPllEKzhW8gd2FbDkX5DXWq7nIqGw66N224DY7ggBwLmy1F+Emj4fG/N0zTNuRjFBNvxeZzO1BbncTxRy7Xo2fr4xfu5zA1teCNoQ+2G8tmmQriU85kLATsCas8a3RAEQRAEQRAEQRAEQRAE+YhfQOlFq9KLUMIAAAAASUVORK5CYII=">
-<h1>Здравствуйте {{ user.username }},</h1>
+{% autoescape off %}
+Здравствуйте {{ user.username }},
 
 ваш ПАРОЛЬ: {{ password }}
 
 Пожалуйста перейдите по данной ссылке для завершения регистрации аккаунта:
 
 {{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
-</body>
-</html>
+{% endautoescape %}
