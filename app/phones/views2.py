@@ -66,12 +66,15 @@ def stripe_webhook(request):
             accounts_id=session['metadata']['id']) & Bascet_products.objects.filter(product_buy=False)
         check_in = 0
         check_in_inf = False
+        time = get_time()
+        print(time)
         for i in products:
             a = 0
             if i.group_product == 1:
                 change = Phones.objects.get(id=i.product_id)
                 change.count -= i.count
                 if change.count < 0:
+                    print(change.count)
                     change.count += i.count
                     a = 1
                     send_mail(
@@ -81,6 +84,7 @@ def stripe_webhook(request):
                         from_email="matt@test.com"
                     )
                 else:
+                    print(change.count)
                     change.save()
             elif i.group_product == 2:
                 change = AirPods.objects.get(id=i.product_id)
@@ -99,8 +103,10 @@ def stripe_webhook(request):
             if a == 0:
                 check_in_inf = True
                 i.product_buy = True
-                i.time = get_time()
+                print(i.time)
+                i.time = time
                 i.save()
+                print(i.time)
             else:
                 check_in = 1
         if check_in == 0:

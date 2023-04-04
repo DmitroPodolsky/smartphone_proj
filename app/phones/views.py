@@ -368,6 +368,14 @@ class Bascet_products_APP(APIView):
             self.h1(kwargs, request)
         except:
             return Response({"Error": "wrong id phone"})
+        a=set()
+        for i in self.instance:
+            print(i)
+            print(i.time)
+            a.add(i.time)
+        print(a)
+        a=list(a)
+        print(a)
         return Response(Buscet_products_Seria(self.instance, many=True).data)
 def Redirect_front(request):
     return redirect('http://smartshopcenter.org:3000/')
