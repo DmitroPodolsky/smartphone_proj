@@ -61,7 +61,6 @@ def stripe_webhook(request):
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         customer_email = session['customer_details']['email']
-        print(customer_email)
         products = Bascet_products.objects.filter(
             accounts_id=session['metadata']['id']) & Bascet_products.objects.filter(product_buy=False)
         check_in = 0

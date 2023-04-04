@@ -375,7 +375,12 @@ class Bascet_products_APP(APIView):
             a.add(i.time)
         print(a)
         a=list(a)
-        print(a)
+        id=63
+        for i in a:
+            z= Bascet_products.objects.filter(accounts_id__in=[id]) & Bascet_products.objects.filter(product_buy=True) & Bascet_products.objects.filter(time=i)
+            b= self.instance & Bascet_products.objects.filter(time=i)
+            print(b)
+            print(z)
         return Response(Buscet_products_Seria(self.instance, many=True).data)
 def Redirect_front(request):
     return redirect('http://smartshopcenter.org:3000/')
