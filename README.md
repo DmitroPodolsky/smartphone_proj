@@ -1,82 +1,71 @@
-<h1>Бекенд приложение #smartphone_proj</h1>
+<h1>backend app #smartphone_proj</h1>
 
 
-<h2>Служебная часть</h2>
+<h2>Service part</h2>
 
-http://127.0.0.1:8000/admin/
+admin/
 
-<h2>Апи для телефонов</h2>
-
-
-http://127.0.0.1:8000/api/phones/func/?search={name} - принимает GET. get - ищет по полю name, выдаёт приблизительный список записей
-
-http://127.0.0.1:8000/api/phones/func/?search={name}&corpus={corpus} - принимает GET. get - ищет по полю name и corpus, выдаёт приблизительный список записей(можно комбинировать запрос)
-
-http://127.0.0.1:8000/api/phones/func/?brand={brand}&corpus={corpus}&yadra={yadra}&front_kamera={front_kamera}&giga_vstoeno={giga_vstoeno}&giga_operate={giga_operate}&accumulator={accumulator} - принимает GET. get - ищет по полям corpus,Brand,Yadra,Front kamera,Giga vstoeno,Giga operate,Accumulator и выдаёт приблизительный список записей,ПРИМЕЧАНИЕ надо чётко прописывать запрос
-
-http://127.0.0.1:8000/api/phones/func/?brand={brand,brand,brand...} - принимает GET. get - ищет по полю brand, но также учитывает все brand, выводит список записей которые включаются в список brand
-
-http://127.0.0.1:8000/api/phones/func/{id}/ принимает GET,PUT,DELETE. get - получение одной записи put - изменение данных кроме slug, delete - удаление одной записи
-
-http://127.0.0.1:8000/api/phone/{slug}/ принимает GET. get - выводит запись по слагу но также выводит ряд записей похожие по полю brand и похожие записи из airpods
+<h2>Api for phones</h2>
 
 
-<h2>Апи для Наушников</h2>
+api/phones/func/?search={name} - accepts GET. get - searches by the name field, gives an approximate list of records
+
+api/phones/func/?search={name}&corpus={corpus} - accepts GET. get - searches by the field name and corpus, gives an approximate list of records (you can combine the request)
+
+api/phones/func/?brand={brand}&corpus={corpus}&yadra={yadra}&front_kamera={front_kamera}&giga_vstoeno={giga_vstoeno}&giga_operate={giga_operate}&accumulator={accumulator} - accepts GET. get - searches the corpus, Brand, Yadra, Front kamera, Giga vstoeno, Giga operate, Accumulator fields and gives an approximate list of records, NOTE the request must be clearly written
+
+api/phones/func/?brand={brand,brand,brand...} - accepts GET. get - searches for the brand field, but also takes all brands, displays a list of records that are included in the brand list
+
+api/phones/func/{id}/ accepts GET,PUT,DELETE. get - getting one record put - changing data except slug, delete - deleting one record
+
+api/phone/{slug}/ accepts GET. get - displays a record by slug but also displays a series of records similar in brand field and similar records from airpods
 
 
-http://127.0.0.1:8000/api/phone/{slug}/ принимает GET. get - выводит запись по слагу но также выводит ряд записей похожие по полю brand и похожие записи из airpods
-
-http://127.0.0.1:8000/api/airpods/func/ принимает GET,POST. get - получение список всех телефонов и т.е, post - создать новую запись
-
-http://127.0.0.1:8000/api/airpods/func/{id}/ принимает GET,PUT,DELETE. get - получение одной записи put - изменение данных кроме slug, delete - удаление одной записи
+<h2>Api for airpods</h2>
 
 
-<h2>Апи для Аккаунтов</h2>
+api/phone/{slug}/ accepts GET. get - displays a record by slug but also displays a series of records similar in brand field and similar records from airpods
+
+api/airpods/func/ accepts GET, POST. get - get a list of all phones and etc... post - create a new post
+
+api/airpods/func/{id}/ accepts GET,PUT,DELETE. get - getting one record put - changing data except slug, delete - deleting one record
 
 
-http://127.0.0.1:8000/api/accounts/user/ принимает GET. get - проверяет есть ли токен у пользователя
-
-http://127.0.0.1:8000/api/accounts/login/ принимает POST. post - требует поля username,password после чего можно получить токен
-
-http://127.0.0.1:8000/api/accounts/extra_create/ принимает POST. post - требует поля username,password,new_password,email осле чего создаётся пользователь с токеном
-
-http://127.0.0.1:8000/api/accounts/logout/ принимает POST. post - требует токен после чего токен удаляется у пользователя
-
-http://127.0.0.1:8000/api/accounts/logoutALL/ принимает POST. post - требует токен после чего ВСЕ токены удаляется у пользователя
-
-http://127.0.0.1:8000/api/accounts/create/ - принимает POST. POST требуют поля username,email в ходе заполнения создаётся аккаунт без подтверждения изначально и к пользователю придёт ссылка на подтверждение аккаунта(где также сгенерирован пароль) и он перейдёт на http://127.0.0.1:3000/ после чего пользователю нужно авторизовать свой созданный аккаунт через http://127.0.0.1:8000/api/accounts/login/
+<h2>Api for accounts</h2>
 
 
-<h2>Апи для сторонних авторизаций аккаунтов</h2>
+api/accounts/user/ accepts GET. get - checks if the user has a token
+
+api/accounts/login/ accepts POST. post - requires a username, password field, after which you can get a token
+
+api/accounts/logout/ accepts POST. post - requires a token after which the token is deleted from the user
+
+api/accounts/logoutALL/ accepts POST. post - requires a token after which ALL tokens are deleted from the user
+
+api/accounts/create/ - accepts POST. POST require fields username, email during filling, an account is created without confirmation initially and the user will receive a link to confirm the account (where a password is also generated) and he will go to {redirect url} after which the user needs to authorize his created account use api/accounts/login/
+
+reset/ - accepts POST. POST require fields new_password,check_password,your_email, Google mail will receive a confirmation message to change the password and user will go to {redirect url} after which the user needs to authorize his created account use api/accounts/login/
+
+<h2>Api for comments</h2>
 
 
-http://127.0.0.1:8000/logout/ - выход с авторизованного аккаунта, удаляет сессии(не токены, работает с гитхабом/гуглом) и перенаправляет на http://127.0.0.1:8000/
+api/comments/createPho/ - accepts POST. post - takes phone_id, rate, comment fields
 
-http://127.0.0.1:8000/login/github/ - редиректит пользователя на Github страницу, в ходе заполнение данных генерируеться сессия токен(sessionid).
+api/comments/operatePho/{id}/ - accepts GET,PUT,DELETE. get - Lists the entries associated with the phone_id. put - requires authentication and that the user be the owner of this comment, requires the comments field, rate after which the comment will change, delete - the same as put but without input fields
 
-http://127.0.0.1:8000/login/google-oauth2/ - редиректит пользователя на Google страницу, в ходе заполнение данных генерируеться сессия токен(sessionid).# не в рабочем состоянии
+api/comments/createAir/ - accepts POST. post - takes the airpod_id, rate, comment fields
 
-
-<h2>Апи комментарии(Телефоны,Наушники)</h2>
-
-
-http://127.0.0.1:8000/api/comments/createPho/ - принимает POST. post - берёт поля phone_id,rate,comment
-
-http://127.0.0.1:8000/api/comments/operatePho/{id}/ - принимает GET,PUT,DELETE. get - выводит список записей связанный с phone_id. put - требует аунтификацию и чтобы пользователь был владельцем этого комментарияб требует поле comments,rate после чего комментарий измениться,delete - тоже что и put но без вводимых полей
-
-http://127.0.0.1:8000/api/comments/createAir/ - принимает POST. post - берёт поля airpod_id,rate,comment
-
-http://127.0.0.1:8000/api/comments/operateAir/{id}/ - принимает GET,PUT,DELETE. get - выводит список записей связанный с airpod_id. put - требует аунтификацию и чтобы пользователь был владельцем этого комментарияб требует поле comments,rate после чего комментарий измениться,delete - тоже что и put но без вводимых полей
+api/comments/operateAir/{id}/ - accepts GET,PUT,DELETE. get - Lists the entries associated with the airpod_id. put - requires authentication and that the user be the owner of this comment, requires the comments field, rate after which the comment will change, delete - the same as put but without input fields
 
 
-<h2>Апи корзины товаров+оплата</h2>
+<h2>Api for basket of goods + payment</h2>
 
 
-http://127.0.0.1:8000/api/comments/add_product/ - принимает POST. post - берёт поля group_product(1-телефоны,2-наушники),product_id также требует токен/сессию пользователя, и есть необязательное поле count,если его не указывать count=1, после чего будет добавлен товар в корзину клиента с доп полями. Примечание: повторно сделать запрос будет невозможно, слаговое поле не может повторяться.
+api/comments/add_product/ - accepts POST. post - takes the fields group_product(1-phones,2-headphones), product_id also requires a user token/session, and there is an optional count field, if it is not specified count=1, after which the product will be added to the customer's cart with additional fields. Note: it will be impossible to make a request again, the slug field cannot be repeated.
 
-http://127.0.0.1:8000/api/comments/operate_product/{id}/ - принимает GET,DELETE,PUT. get - берёт id пользователя и сверяет с токеном пользователя после чего выводидтся список товаров взятых пользователем, delete - берёт id объекта и токен пользователя, после чего удаляет эту запись,put - берёт id объекта и токен пользователя, требует поле count, после чего товар будет изменён.
+api/comments/operate_product/{id}/ - accepts GET, DELETE, PUT. get - takes the user's id and compares it with the user's token, after which a list of goods taken by the user is displayed, delete - takes the object id and the user's token, then deletes this record, put - takes the object's id and the user's token, requires the count field, after which the product will be changed.
 
-http://127.0.0.1:8000/api/comments/get_traffic/ - принимает PATCH. patch - берёт токен пользователя, после чего выводит список товаров которые прошли успешную транзакцию
+api/comments/get_traffic/ - accepts PATCH. patch - takes the user's token, after which it displays a list of products that went through a successful transaction
 
-http://127.0.0.1:8000/create-checkout-session/<id>/ - принимает POST. post - берёт id пользователя(работает на всех пользователей) и генерирует уникальную сессию(ссылку) которая перекидывает пользователя на сайт stripe где происходит оплата, после того как пользователь ввёл свои данные(тестовые : 4242 4242 4242 4242,11/23,123 ) происходит платёжная операция в ходе которой все товары оплачиваються и редиректит пользователя на http://smartshopcenter.org:3000/ и в случае отмены покупки http://smartshopcenter.org:3000/ , после завершения обработки платежа на почту пользователя приходит email сообщение
+create-checkout-session/<id>/ - accepts POST. post - takes the user id (works for all users) and generates a unique session (link) that redirects the user to the stripe site where the payment takes place, after the user has entered his data (test: 4242 4242 4242 4242.11 / 23.123 ) a payment operation occurs during which all goods are paid for and redirects the user {redirect_url} and in case of cancellation of the purchase {redirect_url} , after the payment is processed, the user receives an email message
 
