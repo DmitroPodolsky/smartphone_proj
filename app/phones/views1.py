@@ -33,7 +33,8 @@ def activate(request, uidb64, token):
 def reset(request, uidb64, token):
     user = activate_simple(force_str(urlsafe_base64_decode(uidb64)))
     if user is not None and account_activation_token.check_token(user, token):
-        user.set_password(user.first_name)
+        print(str(user.first_name))
+        user.set_password(str(user.first_name))
         user.first_name = ''
         user.save()
     return redirect('http://localhost:3000')#'http://smartshopcenter.org:3000/sign-in'
