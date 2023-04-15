@@ -87,7 +87,8 @@ class SetPassword_No(serializers.ModelSerializer):
         if check_password != new_password:
             raise serializers.ValidationError({f'password: not correct password'})
         instance1 = User.objects.get(email=your_email)
-        instance1.first_name = check_password
+        instance1.set_password(check_password)
+        instance1.is_active=False
         instance1.save()
         return instance1
 
