@@ -34,8 +34,8 @@ def CreateCheckoutSessionView(request, *args, **kwargs):
             ],
             metadata={'id': product_id},
             mode='payment',
-            success_url='http://localhost:3000',#'http://smartshopcenter.org:3000',
-            cancel_url='http://localhost:3000'#'http://smartshopcenter.org:3000',
+            success_url='http://localhost:3000/customer/message/',#'http://smartshopcenter.org:3000',
+            cancel_url='http://localhost:3000/customer/message/'#'http://smartshopcenter.org:3000',
         )
         return JsonResponse({'id': checkout_session.url})
 
